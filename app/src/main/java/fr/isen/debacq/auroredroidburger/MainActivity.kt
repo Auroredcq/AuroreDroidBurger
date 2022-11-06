@@ -20,15 +20,18 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         //Declaration des variables
         val burger_list = resources.getStringArray(R.array.burger_list)
-        val spinner = findViewById<Spinner>(R.id.spinner)
+        val spinner = findViewById<Spinner>(R.id.burger)
         val heure = findViewById<Button>(R.id.heure)
         val button = findViewById<Button>(R.id.button)
-        val editTextNom = findViewById<EditText>(R.id.editTextNom)
-        val editTextPrenom = findViewById<EditText>(R.id.editTextPrenom)
-        val editTextAdresse = findViewById<EditText>(R.id.editTextAdresse)
-        val editTextTelephone = findViewById<EditText>(R.id.editTextTelehone)
+        val Nom = findViewById<EditText>(R.id.Nom)
+        val Prenom = findViewById<EditText>(R.id.Prenom)
+        val numeroRue = findViewById<EditText>(R.id.numeroRue)
+        val Rue = findViewById<EditText>(R.id.Rue)
+        val CodePostal = findViewById<EditText>(R.id.CodePostal)
+        val villeLivraison = findViewById<EditText>(R.id.villeLivraison)
+        val numeroTelephone = findViewById<EditText>(R.id.numeroTelehone)
         val sharedPreferences: SharedPreferences = this.getSharedPreferences(sharedPrefFile, Context.MODE_PRIVATE)
-        var burger_choisi : String = "Burger_Error"
+        var burger_choisi : String = "BurgerError"
         val mTimePicker: TimePickerDialog
         val mcurrentTime = Calendar.getInstance()
         val hour = mcurrentTime.get(Calendar.HOUR_OF_DAY)
@@ -45,21 +48,27 @@ class MainActivity : AppCompatActivity() {
         heure.setOnClickListener({ mTimePicker.show() })
 
         button.setOnClickListener {
-            if (heure.text.equals("Select Time") || heure.text.isEmpty() || editTextPrenom.text.isEmpty() || editTextNom.text.isEmpty() || editTextAdresse.text.isEmpty() || editTextTelephone.text.isEmpty() || editTextTelephone.text.length != 10 || burger_choisi.equals("Sélectionnez un Burger")){
+            if (heure.text.equals("Select Time") || heure.text.isEmpty() || Prenom.text.isEmpty() || Nom.text.isEmpty() || Rue.text.isEmpty() || numeroTelephone.text.isEmpty() || numeroTelephone.text.length != 10 || burger_choisi.equals("Sélectionnez un Burger") || villeLivraison.text.isEmpty() || CodePostal.text.isEmpty()){
                 Toast.makeText(this@MainActivity, "Veuillez remplir tout les champs svp.", Toast.LENGTH_SHORT).show()
             }
             else {
                 Toast.makeText(this@MainActivity, "Confirmation", Toast.LENGTH_SHORT).show()
-                val saveNom:String = editTextNom.text.toString()
-                val savePrenom:String = editTextPrenom.text.toString()
-                val saveAdresse:String = editTextAdresse.text.toString()
-                val saveTelephone:String = editTextTelephone.text.toString()
+                val saveNom:String = Nom.text.toString()
+                val savePrenom:String = Prenom.text.toString()
+                val saveNumeroRue:String = numeroRue.text.toString()
+                val saveRue:String = Rue.text.toString()
+                val saveCodePostal2:String = CodePostal.text.toString()
+                val saveVille : String = villeLivraison.text.toString()
+                val saveTelephone:String = numeroTelephone.text.toString()
                 val saveBurger: String = burger_choisi
                 val saveHeure:String = heure.text.toString()
                 val editor:SharedPreferences.Editor =  sharedPreferences.edit()
                 editor.putString("savePrenom_key",savePrenom)
                 editor.putString("saveNom_key",saveNom)
-                editor.putString("saveAdresse_key",saveAdresse)
+                editor.putString("saveNumeroRue_key",saveNumeroRue)
+                editor.putString("saveRue_key",saveRue)
+                editor.putString("saveCodePostal_key",saveCodePostal2)
+                editor.putString("saveVille_key",saveVille)
                 editor.putString("saveTelephone_key",saveTelephone)
                 editor.putString("saveBurger_key",saveBurger)
                 editor.putString("saveHeure_key",saveHeure)

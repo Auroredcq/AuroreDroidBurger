@@ -1,5 +1,6 @@
 package fr.isen.debacq.auroredroidburger
 
+import android.annotation.SuppressLint
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
@@ -12,22 +13,26 @@ import android.widget.TextView
 import fr.isen.debacq.auroredroidburger.MainActivity.Companion.sharedPrefFile
 
 class ConfirmationActivity : AppCompatActivity() {
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_confirmation)
         //declaration des variables
-        val textView4 = findViewById<TextView>(R.id.textView4)
+        val textConfirmation = findViewById<TextView>(R.id.textConfirmation)
         val button2 = findViewById<Button>(R.id.button2)
         val sharedPreferences: SharedPreferences = this.getSharedPreferences(sharedPrefFile, Context.MODE_PRIVATE)
         val Nom: String? = sharedPreferences.getString( "saveNom_key","NomError" )
         val Prenom: String? = sharedPreferences.getString( "savePrenom_key","PrenomError" )
-        val Adresse: String? = sharedPreferences.getString( "saveAdresse_key","AdresseError" )
+        val numeroRue: String? = sharedPreferences.getString( "savenumeroRue_key"," " )
+        val Rue: String? = sharedPreferences.getString( "saveRue_key","RueError" )
+        val CodePostal: String? = sharedPreferences.getString( "saveCodePostal_key","CodePostalError" )
+        val villeLivraison: String? = sharedPreferences.getString( "saveVille_key","VilleError" )
         val numeroTelephone: String? = sharedPreferences.getString( "saveTelephone_key","TelephoneError" )
         val Burger: String? = sharedPreferences.getString( "saveBurger_key","BurgerError" )
         val livraisonHeure: String? = sharedPreferences.getString( "saveHeure_key","HeureError" )
         val emailEnvoi = Intent(Intent.ACTION_SEND)
 
-        textView4.text = "Merci  Mr/Mme ${Nom} ${Prenom} pour votre commande du ${Burger} \n\ril vous sera livré à l'adresse :\r\n ${Adresse} \r\nau plus tard à ${livraisonHeure} \r\nNotre livreur vous appellera au ${numeroTelephone}"
+        textConfirmation.text = "Madame,Monsieur ${Nom} ${Prenom}, \n\rNous vous remercions pour votre commande du ${Burger}. \n\rVous serez livré au:\r\n ${numeroRue} ${Rue} ${CodePostal} ${villeLivraison} \r\nà ${livraisonHeure} \r\nNotre livreur vous appellera au ${numeroTelephone}"
 
         fun envoidEmail(Destinataire: String, objet: String, corps: String) {
 
